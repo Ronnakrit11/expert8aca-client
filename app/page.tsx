@@ -1,14 +1,14 @@
 import Home from "./components/HomeNew/Home";
 
 export const metadata = {
-  title: "Expert8 Academy เปลี่ยนไอเดียเป็นทอง",
+  title: "Expert8 Academy พัฒนาซอฟเเวร์โดย ai ครบวงจร",
   description:
-  "บริการทำระบบเรียนออนไลน์ครบวงจรสามารถขายได้ทั้งคอร์สเเละ Ebook เรามุ่งเน้นถึงประสิทธิภาพที่สูงสุดของเว็ปไซต์",
+  "สอนการเขียนซอฟเเวร์โดยใช้เเค่ ai",
   keywords:
     "ONLINE,course,study,ระบบเรียนออนไลน์,ทำคอร์สเรียนออนไลน์ ทำระบบการเรียนออนไลน์ ทำกราฟฟิก ตัดต่อวีดีโอ เเละดูเเลการยิงโฆษณา ",
   openGraph: {
-    title: "Expert8 Academy ทำระบบการเรียนออนไลน์ครบวงจร ",
-    description: "บริการทำระบบเรียนออนไลน์ครบวงจรสามารถขายได้ทั้งคอร์สเเละ Ebook เรามุ่งเน้นถึงประสิทธิภาพที่สูงสุดของเว็ปไซต์",
+    title: "Expert8 Academy พัฒนาซอฟเเวร์โดย ai ครบวงจร",
+    description: "สอนการเขียนซอฟเเวร์โดยใช้เเค่ ai",
     url: "https://www.expert8academy.com",
 
     siteName: "Expert8 academy",
@@ -24,9 +24,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Expert8 Academy ทำระบบการเรียนออนไลน์ครบวงจร",
+    title: "Expert8 Academy พัฒนาซอฟเเวร์โดย ai ครบวงจร",
     description:
-      "บริการทำระบบเรียนออนไลน์ครบวงจรสามารถขายได้ทั้งคอร์สเเละ Ebook เรามุ่งเน้นถึงประสิทธิภาพที่สูงสุดของเว็ปไซต์",
+      "สอนการเขียนซอฟเเวร์โดยใช้เเค่ ai",
     images: [
       "https://res.cloudinary.com/dzq52nvuo/image/upload/v1710772494/qxjhq8ix68pj3irar9x7.jpg",
     ],
