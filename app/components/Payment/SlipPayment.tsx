@@ -185,8 +185,8 @@ const SlipPayment = ({ product, data, onCheckoutSuccess }: IProps) => {
     })
 
     const payload = {
-      // The server expects the exact enum values from ProductType
-      productType: product === 'cart' ? 'CART' : product === 'course' ? 'COURSE' : 'EBOOK',
+      // The server expects the exact enum values from ProductType which are lowercase
+      productType: product, // 'cart', 'course', or 'ebook' - these match the server's enum values
       // For cart checkout, we use a special ID to identify it's a cart checkout
       productId: product === 'cart' ? 'cart-checkout' : data._id,
       qrData: resultQr,
