@@ -185,7 +185,8 @@ const SlipPayment = ({ product, data, onCheckoutSuccess }: IProps) => {
     })
 
     const payload = {
-      productType: product,
+      // Convert product type to match the server's ProductType enum
+      productType: product.toUpperCase(),
       // For cart checkout, we use a special ID to identify it's a cart checkout
       productId: product === 'cart' ? 'cart-checkout' : data._id,
       qrData: resultQr,
