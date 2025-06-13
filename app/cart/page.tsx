@@ -44,15 +44,8 @@ const CartPage = () => {
   };
 
   const handleCheckout = () => {
-    if (!isAuthenticated) {
-      toast.error("กรุณาเข้าสู่ระบบก่อนทำการชำระเงิน");
-      // Save the cart to localStorage before redirecting
-      // This way the cart will still be available after login
-      router.push("/sign-in");
-      return;
-    }
-
-    // Open the checkout modal with payment method selection
+    // Always open the checkout modal with payment method selection
+    // The CartCheckout component will handle authentication checks
     setCheckoutOpen(true);
   };
 

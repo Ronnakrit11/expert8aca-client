@@ -53,28 +53,8 @@ const CartCheckout: React.FC<CartCheckoutProps> = ({
     }
   };
 
-  if (!isAuthenticated) {
-    return (
-      <Modal
-        open={open}
-        setOpen={setOpen}
-        title="กรุณาเข้าสู่ระบบ"
-      >
-        <div className="p-5 text-center">
-          <p className="mb-4">กรุณาเข้าสู่ระบบก่อนทำการชำระเงิน</p>
-          <button
-            onClick={() => {
-              setOpen(false);
-              router.push('/sign-in');
-            }}
-            className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-md"
-          >
-            เข้าสู่ระบบ
-          </button>
-        </div>
-      </Modal>
-    );
-  }
+  // Allow both authenticated and non-authenticated users to see payment options
+  // Authentication check will be handled during the actual payment process
 
   return (
     <Modal
