@@ -1,6 +1,6 @@
 "use client";
 import "./globals.css";
-import { Poppins ,Anuphan } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { Josefin_Sans } from "next/font/google";
 import { ThemeProvider } from "./utils/theme-provider";
 import { Toaster } from "react-hot-toast";
@@ -16,7 +16,7 @@ const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
 
 
-const poppins = Anuphan({
+const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-Poppins",
