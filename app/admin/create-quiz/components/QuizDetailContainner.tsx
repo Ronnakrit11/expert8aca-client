@@ -14,6 +14,11 @@ import {
 import toast from "react-hot-toast";
 import { QuizDetailResponse } from "../type";
 
+interface QuizDataResponse {
+  quiz: QuizDetailResponse;
+  success: boolean;
+}
+
 export type ItemType = {
     question: string;
     description: string;
@@ -88,7 +93,7 @@ const QuizDetailContainner = ({ quizId }) => {
     }, []);
 
     useEffect(() => {
-        if (quizData) {
+        if (quizData && (quizData as QuizDataResponse).quiz) {
             const {
                 name,
                 description,
@@ -97,7 +102,7 @@ const QuizDetailContainner = ({ quizId }) => {
                 max_submission_post_test,
                 quizItem,
                 time_limit_minutes,
-            } = quizData.quiz as QuizDetailResponse;
+            } = (quizData as QuizDataResponse).quiz;
             setState({
                 name,
                 description,
@@ -187,7 +192,7 @@ const QuizDetailContainner = ({ quizId }) => {
         if (isEdit) {
             // update quiz
             return toast.promise(
-                updateQuiz({ body: payloadBody, quizId: quizData.quiz._id })
+                updateQuiz({ body: payloadBody, quizId: (quizData as QuizDataResponse).quiz._id })
                     .unwrap()
                     .then((res) => {
                         refreshAllQuiz();

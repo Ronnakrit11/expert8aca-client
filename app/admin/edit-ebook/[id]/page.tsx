@@ -15,6 +15,11 @@ import SimpleBackdrop from "@/app/components/Loading/SimpleBackdrop";
 
 type Props = {};
 
+interface EbookResponse {
+  ebook: any;
+  success: boolean;
+}
+
 const page = ({ params }: any) => {
   const id = params?.id;
   const { data, error: errorDetail, isLoading: isLoadingDetail, isSuccess: isSuccessDetail, refetch } = useGetEbookDetailAdminQuery(id, { refetchOnMountOrArgChange: true });
@@ -28,8 +33,8 @@ const page = ({ params }: any) => {
   const [fileImg, setFileImg] = useState(null) as any;
 
   useEffect(() => {
-    if (isSuccessDetail) {
-      setEbookInfo(data.ebook)
+    if (isSuccessDetail && data) {
+      setEbookInfo((data as EbookResponse).ebook)
       refetch()
     }
     if (error) {

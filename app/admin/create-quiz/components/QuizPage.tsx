@@ -20,6 +20,11 @@ interface Quiz {
     pass_percentage: number
 }
 
+interface QuizResponse {
+    quiz: Quiz[];
+    success: boolean;
+}
+
 const QuizPage = () => {
     const router = useRouter()
     const { data: quizResponse, refetch } = useGetAllQuizQuery({ refetchOnMountOrArgChange: true })
@@ -31,7 +36,7 @@ const QuizPage = () => {
     useEffect(() => {
         if (quizResponse) {
             // console.log("🚀 ~ useEffect ~ quizResponse:", quizResponse.quiz)
-            setDataList(quizResponse.quiz)
+            setDataList((quizResponse as QuizResponse).quiz)
         }
     }, [quizResponse])
 
