@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import CartCheckout from "../components/Payment/CartCheckout";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCart, removeFromCart, clearCart } from "../../redux/features/cart/cartSlice";
 import Heading from "../utils/Heading";
@@ -21,6 +22,7 @@ const CartPage = () => {
   const { cartItems, isLoading } = useSelector((state: any) => state.cart);
   const { user, isAuthenticated } = useSelector((state: any) => state.auth);
   const [loading, setLoading] = useState(false);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
 
   useEffect(() => {
     // Fetch cart for both authenticated and unauthenticated users
@@ -41,33 +43,17 @@ const CartPage = () => {
     toast.success("Cart cleared");
   };
 
-  const handleCheckout = async () => {
+  const handleCheckout = () => {
     if (!isAuthenticated) {
-      toast.error("Please login to checkout");
+      toast.error("กรุณาเข้าสู่ระบบก่อนทำการชำระเงิน");
       // Save the cart to localStorage before redirecting
       // This way the cart will still be available after login
       router.push("/sign-in");
       return;
     }
 
-    try {
-      setLoading(true);
-      // Get payment token
-      const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/payment/token`,
-        { courseId: cartItems[0].courseId, totalAmount: calculateTotal() },
-        { withCredentials: true }
-      );
-
-      // Redirect to payment page
-      if (data.success) {
-        window.location.href = data.url;
-      }
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || "Payment failed");
-    } finally {
-      setLoading(false);
-    }
+    // Open the checkout modal with payment method selection
+    setCheckoutOpen(true);
   };
 
   return (
@@ -188,6 +174,13 @@ const CartPage = () => {
           )}
         </div>
       </div>
+      {/* Checkout Modal */}
+      <CartCheckout 
+        open={checkoutOpen}
+        setOpen={setCheckoutOpen}
+        cartItems={cartItems}
+        isAuthenticated={isAuthenticated}
+      />
       <Footer />
     </div>
   );

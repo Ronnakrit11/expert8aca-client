@@ -20,8 +20,9 @@ const MySwal: any = withReactContent(Swal)
 
 
 interface IProps {
-  product: 'course' | 'ebook'
+  product: 'course' | 'ebook' | 'cart'
   data: any
+  onCheckoutSuccess?: () => void
 }
 
 enum PaymentMethod {
@@ -29,7 +30,7 @@ enum PaymentMethod {
   visa = 'visa'
 }
 
-const SlipPayment = ({ product, data }: IProps) => {
+const SlipPayment = ({ product, data, onCheckoutSuccess }: IProps) => {
   console.log("🚀 ~ SlipPayment ~ data:", data)
   const { data: userData, refetch } = useLoadUserQuery<any>(undefined, {});
   const [getToken, { }] = useGetTokenPaymentMutation<any>();
@@ -113,11 +114,22 @@ const SlipPayment = ({ product, data }: IProps) => {
     if (orderData) {
       if (orderData.success) {
         toast.success('ยืนยันการโอนเงินสำเร็จ')
-        const toastId = toast.loading('รอสักครู่ระบบกำลังเข้าสู่บทเรียน')
-        refetch().then(() => {
-          router.replace(`/course-access/${orderData.result.courseId}`)
-          toast.dismiss(toastId);
-        })
+        if (product === 'cart' && onCheckoutSuccess) {
+          // For cart checkout, call the provided success callback
+          onCheckoutSuccess();
+        } else if (product === 'ebook') {
+          refetch();
+          // For single ebook, open download modal
+          // setOpen(false)
+          // setOpenModalDownLoad(true)
+        } else {
+          // For single course, redirect to course access
+          const toastId = toast.loading('รอสักครู่ระบบกำลังเข้าสู่บทเรียน')
+          refetch().then(() => {
+            router.replace(`/course-access/${orderData.result.courseId}`)
+            toast.dismiss(toastId);
+          })
+        }
       }
     }
 
@@ -174,7 +186,8 @@ const SlipPayment = ({ product, data }: IProps) => {
 
     const payload = {
       productType: product,
-      productId: data._id,
+      // For cart checkout, we use a special ID to identify it's a cart checkout
+      productId: product === 'cart' ? 'cart-checkout' : data._id,
       qrData: resultQr,
       addressInfo,
     }
