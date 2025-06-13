@@ -16,7 +16,7 @@ const CourseInformation: FC<Props> = ({
   setActive,
 }) => {
   const [dragging, setDragging] = useState(false);
-  const { data } = useGetHeroDataQuery("Categories", {});
+  const { data } = useGetHeroDataQuery<any>("Categories", {});
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -230,9 +230,8 @@ const CourseInformation: FC<Props> = ({
           />
           <label
             htmlFor="file"
-            className={`w-full min-h-[10vh] dark:border-white border-[#00000026] p-3 border flex items-center justify-center ${
-              dragging ? "bg-blue-500" : "bg-transparent"
-            }`}
+            className={`w-full min-h-[10vh] dark:border-white border-[#00000026] p-3 border flex items-center justify-center ${dragging ? "bg-blue-500" : "bg-transparent"
+              }`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}

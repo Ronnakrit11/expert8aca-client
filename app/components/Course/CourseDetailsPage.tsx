@@ -19,11 +19,11 @@ type Props = {
 const CourseDetailsPage = ({ id }: Props) => {
   const [route, setRoute] = useState("Login");
   const [open, setOpen] = useState(false);
-  const { data, isLoading } = useGetCourseDetailsQuery(id);
-  const { data: config } = useGetStripePublishablekeyQuery({});
+  const { data, isLoading } = useGetCourseDetailsQuery<any>(id);
+  const { data: config } = useGetStripePublishablekeyQuery<any>({});
   const [createPaymentIntent, { data: paymentIntentData }] =
-    useCreatePaymentIntentMutation();
-  const { data: userData } = useLoadUserQuery(undefined, {});
+    useCreatePaymentIntentMutation<any>();
+  const { data: userData } = useLoadUserQuery<any>(undefined, {});
   const [stripePromise, setStripePromise] = useState<any>(null);
   const [clientSecret, setClientSecret] = useState("");
 
@@ -65,7 +65,7 @@ const CourseDetailsPage = ({ id }: Props) => {
             activeItem={1}
           />
           <div className="w-full bg-gradient-4 text-white">
-          <CourseDetails
+            <CourseDetails
               data={data.course}
               setRoute={setRoute}
               setOpen={setOpen}

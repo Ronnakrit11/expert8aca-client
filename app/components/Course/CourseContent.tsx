@@ -55,12 +55,12 @@ const CourseContent = ({ id, user }: Props) => {
     refetch,
   } = useGetCourseContentQuery(id, { refetchOnMountOrArgChange: true });
 
-  const { data: courseData, refetch: courseRefetch } = useGetCourseDetailsQuery(id, { refetchOnMountOrArgChange: true });
+  const { data: courseData, refetch: courseRefetch } = useGetCourseDetailsQuery<any>(id, { refetchOnMountOrArgChange: true });
   const { responseUpdateWatched } = useSelector((state: any) => state.courses)
   const totalWatched = responseUpdateWatched?.total_watch_time || 0
   const quiz = courseData?.course?.quiz || {};
   const preTestId = quiz?.preTestId?._id || quiz.preTestId;
-  const { data: preTestData, refetch: preTestRefetch } = useGetQuizInfoQuery(preTestId && { quiz_id: preTestId, course_id: id });
+  const { data: preTestData, refetch: preTestRefetch } = useGetQuizInfoQuery<any>(preTestId && { quiz_id: preTestId, course_id: id });
   const [open, setOpen] = useState(false);
   const [isOpenQuiz, setIsOpenQuiz] = useState(false);
   const [isPretest, setIsPretest] = useState(false);
@@ -70,7 +70,7 @@ const CourseContent = ({ id, user }: Props) => {
     data: userProgressData,
     isLoading: userProgressLoading,
     refetch: refetchUserProgress,
-  } = useGetUserProgressQuery(id, { refetchOnMountOrArgChange: true });
+  } = useGetUserProgressQuery<any>(id, { refetchOnMountOrArgChange: true });
   const [currentTime, setCurrentTime] = useState(0);
   const [activeVideo, setActiveVideo] = useState(0);
   const [isPretestPass, setIsPretestPass] = useState(false);

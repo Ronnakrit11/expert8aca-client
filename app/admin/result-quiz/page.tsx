@@ -11,10 +11,15 @@ import { DateShortTHAndTime } from "@/app/utils/dateFomat";
 
 const last30Days = new Date();
 last30Days.setDate(last30Days.getDate() - 30);
-
+interface QuizResponse {
+  quiz: {
+    _id: string;
+    name: string;
+  }[];
+}
 
 const page = () => {
-  const { data: quizResponse } = useGetAllQuizQuery({
+  const { data: quizResponse } = useGetAllQuizQuery<{ data: QuizResponse }>({
     refetchOnMountOrArgChange: true,
   });
   const [quizOptions, setQuizOptions] = useState<

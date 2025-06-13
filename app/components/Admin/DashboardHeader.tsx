@@ -17,17 +17,17 @@ type Props = {
 };
 
 const DashboardHeader: FC<Props> = ({ open, setOpen }) => {
-  const { data, refetch } = useGetAllNotificationsQuery(undefined, {
+  const { data, refetch } = useGetAllNotificationsQuery<any>(undefined, {
     refetchOnMountOrArgChange: true,
   });
   const [updateNotificationStatus, { isSuccess }] =
-    useUpdateNotificationStatusMutation();
+    useUpdateNotificationStatusMutation<any>();
   const [notifications, setNotifications] = useState<any>([]);
   const [audio] = useState<any>(
     typeof window !== "undefined" &&
-      new Audio(
-        "https://res.cloudinary.com/damk25wo5/video/upload/v1693465789/notification_vcetjn.mp3"
-      )
+    new Audio(
+      "https://res.cloudinary.com/damk25wo5/video/upload/v1693465789/notification_vcetjn.mp3"
+    )
   );
 
   const playNotificationSound = () => {
@@ -44,7 +44,7 @@ const DashboardHeader: FC<Props> = ({ open, setOpen }) => {
       refetch();
     }
     audio.load();
-  }, [data, isSuccess,audio]);
+  }, [data, isSuccess, audio]);
 
   useEffect(() => {
     socketId.on("newNotification", (data) => {

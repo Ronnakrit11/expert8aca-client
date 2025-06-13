@@ -61,7 +61,7 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
     name: "",
   });
   const [updateUserRole, { error: updateError, isSuccess }] =
-    useUpdateUserRoleMutation();
+    useUpdateUserRoleMutation<any>();
 
   const [userState, setUserState] = useState<IUserState>({
     name: '',
@@ -73,19 +73,19 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
   const [startDate, setStartDate] = useState<any>();
 
   const [addUser, { isLoading: isLoadingAddUser, error: AddUserError, isSuccess: AddUserSuccess }] =
-    useAddUserMutation();
+    useAddUserMutation<any>();
 
   const [addCourse, { isLoading: isLoadingAddCourse, error: AddCourseError, isSuccess: AddCourseSuccess }] =
-    useAddCourseToUserMutation();
-  
-    const [updateCourse, { isLoading: isLoadingUpdateCourse, error: updateCourseError, isSuccess: updateCourseSuccess }] =
-    useUpdateCourseToUserMutation();
+    useAddCourseToUserMutation<any>();
+
+  const [updateCourse, { isLoading: isLoadingUpdateCourse, error: updateCourseError, isSuccess: updateCourseSuccess }] =
+    useUpdateCourseToUserMutation<any>();
 
 
   const [addEbook, { isLoading: isLoadingAddEbook, error: AddEbookError, isSuccess: AddEbookSuccess }] =
-    useAddEbookUserMutation();
+    useAddEbookUserMutation<any>();
 
-  const { isLoading, data, refetch } = useGetAllUsersQuery(
+  const { isLoading, data, refetch } = useGetAllUsersQuery<any>(
     {},
     { refetchOnMountOrArgChange: true }
   );
@@ -94,16 +94,16 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
     isLoading: isLoadingCourse,
     data: courseList,
     refetch: refetchCourse,
-  } = useGetAllCoursesQuery({}, { refetchOnMountOrArgChange: true });
+  } = useGetAllCoursesQuery<any>({}, { refetchOnMountOrArgChange: true });
 
   const {
     isLoading: isLoadingEbook,
     data: ebookList,
     refetch: refetchEbook,
-  } = useGetAllEbookQuery({}, { refetchOnMountOrArgChange: true });
+  } = useGetAllEbookQuery<any>({}, { refetchOnMountOrArgChange: true });
 
   const [deleteUser, { isSuccess: deleteSuccess, error: deleteError }] =
-    useDeleteUserMutation({});
+    useDeleteUserMutation<any>({});
 
   const [selectCourse, setSelectCourse] = useState("");
   const [selectEbook, setSelectEbook] = useState("");
@@ -180,7 +180,7 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
   }, [updateError, isSuccess, deleteSuccess, deleteError, AddCourseError, AddCourseSuccess, AddEbookError, AddEbookSuccess, AddUserError, AddUserSuccess]);
 
   useEffect(() => {
-   
+
     if (updateCourseSuccess) {
       refetch();
       toast.success("Update user course successfully!");
@@ -193,7 +193,7 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
         toast.error(errorMessage.data.message);
       }
     }
-  }, [ updateCourseError, updateCourseSuccess]);
+  }, [updateCourseError, updateCourseSuccess]);
 
 
   const columns = [
@@ -309,9 +309,9 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
 
   const handleAddCourse = (isUpdate = false) => {
     const body = { user_id: userId, course_id: selectCourse, expireDate: startDate };
-    if(isUpdate){
+    if (isUpdate) {
       updateCourse(body)
-    }else{
+    } else {
       addCourse(body);
     }
   };
@@ -361,9 +361,9 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
   }, [data?.users])
 
 
-  useEffect(()=>{
+  useEffect(() => {
     handleSearchUser()
-  },[textSearch, originalRowData])
+  }, [textSearch, originalRowData])
 
 
   const handleSearchUser = () => {
@@ -391,7 +391,7 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
           <div className="flex">
             <SearchInput
               value={textSearch}
-              onChange={(e) => setTexSearch(e.target.value)}              
+              onChange={(e) => setTexSearch(e.target.value)}
             />
             {isTeam ? (
               <div className="w-full flex justify-end">
@@ -547,7 +547,7 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
                 setSelectCourse,
                 selectCourse,
                 handleAddCourse,
-                startDate, 
+                startDate,
                 setStartDate
 
               })}
@@ -587,7 +587,7 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
   );
 };
 
-const ModalAddCourse = ({startDate, setStartDate,  handleAddCourse, selectCourse, openModalAddCourse, setOpenModalAddCourse, userInfo, courseList, setSelectCourse }: any) => {
+const ModalAddCourse = ({ startDate, setStartDate, handleAddCourse, selectCourse, openModalAddCourse, setOpenModalAddCourse, userInfo, courseList, setSelectCourse }: any) => {
   const [courseOption, setCourseOption] = useState([])
   const [isCourseExit, setCourseExit] = useState(false)
 
@@ -602,7 +602,7 @@ const ModalAddCourse = ({startDate, setStartDate,  handleAddCourse, selectCourse
         return {
           ...ele,
           isExits: !!foundCourse,
-          
+
         }
 
       })
@@ -632,7 +632,7 @@ const ModalAddCourse = ({startDate, setStartDate,  handleAddCourse, selectCourse
             className={`${styles.input}`}
             value={selectCourse}
             onChange={(e: any) => {
-              const optionData: any = courseOption.find((ele:any) => ele._id == e.target.value)
+              const optionData: any = courseOption.find((ele: any) => ele._id == e.target.value)
               const foundCourse = userInfo.courses.find((course: any) => course.courseId == e.target.value)
               if (optionData) {
                 if (optionData?.isExits) {
@@ -669,7 +669,7 @@ const ModalAddCourse = ({startDate, setStartDate,  handleAddCourse, selectCourse
           <button
             disabled={!!!selectCourse}
             className={`${styles.button}  w-full h-[30px] ${isCourseExit ? 'bg-[#47d097]' : 'bg-[#2190ff]'}  mt-4`}
-            onClick={()=> handleAddCourse(isCourseExit)}
+            onClick={() => handleAddCourse(isCourseExit)}
           >
             {
               isCourseExit ? 'Update' : 'Add'

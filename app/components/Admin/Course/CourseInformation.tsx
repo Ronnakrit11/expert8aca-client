@@ -16,7 +16,7 @@ const CourseInformation: FC<Props> = ({
   setActive,
 }) => {
   const [dragging, setDragging] = useState(false);
-  const { data } = useGetHeroDataQuery("Categories", {});
+  const { data } = useGetHeroDataQuery<any>("Categories", {});
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {

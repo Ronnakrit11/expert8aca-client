@@ -15,8 +15,8 @@ type Props = {};
 const Page = (props: Props) => {
   const searchParams = useSearchParams();
   const search = searchParams?.get("title");
-  const { data, isLoading } = useGetUsersAllCoursesQuery(undefined, {});
-  const { data: categoriesData } = useGetHeroDataQuery("Categories", {});
+  const { data, isLoading } = useGetUsersAllCoursesQuery<any>(undefined, {});
+  const { data: categoriesData } = useGetHeroDataQuery<any>("Categories", {});
   const [route, setRoute] = useState("Login");
   const [open, setOpen] = useState(false);
   const [courses, setcourses] = useState([]);
@@ -67,11 +67,10 @@ const Page = (props: Props) => {
               <br />
               <div className="w-full flex items-center flex-wrap">
                 <div
-                  className={`h-[35px] ${
-                    category === "All"
+                  className={`h-[35px] ${category === "All"
                       ? "bg-[#008AFC] font-bold"
                       : "border-[#008AFC] text-white border-2"
-                  } m-3 px-3 rounded-[30px] flex items-center justify-center font-Poppins cursor-pointer`}
+                    } m-3 px-3 rounded-[30px] flex items-center justify-center font-Poppins cursor-pointer`}
                   onClick={() => setCategory("All")}
                 >
                   All
@@ -80,11 +79,10 @@ const Page = (props: Props) => {
                   categories.map((item: any, index: number) => (
                     <div key={index}>
                       <div
-                        className={`h-[35px] ${
-                          category === item.title
+                        className={`h-[35px] ${category === item.title
                             ? "bg-[#008AFC] font-bold"
                             : "border-[#008AFC] text-white border-2"
-                        } m-3 px-3 rounded-[30px] flex items-center justify-center font-Poppins cursor-pointer`}
+                          } m-3 px-3 rounded-[30px] flex items-center justify-center font-Poppins cursor-pointer`}
                         onClick={() => setCategory(item.title)}
                       >
                         {item.title}

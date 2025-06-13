@@ -22,10 +22,10 @@ type Props = {
 const EbookDetailsPage = ({ id }: Props) => {
   const [route, setRoute] = useState("Login");
   const [open, setOpen] = useState(false);
-  const { data, isLoading } = useGetEbookDetailQuery(id);
-  const { data: config } = useGetStripePublishablekeyQuery({});
-  const [createPaymentIntent, { data: paymentIntentData }] = useCreatePaymentIntentMutation();
-  const { data: userData } = useLoadUserQuery(undefined, {});
+  const { data, isLoading } = useGetEbookDetailQuery<any>(id);
+  const { data: config } = useGetStripePublishablekeyQuery<any>({});
+  const [createPaymentIntent, { data: paymentIntentData }] = useCreatePaymentIntentMutation<any>();
+  const { data: userData } = useLoadUserQuery<any>(undefined, {});
   const [stripePromise, setStripePromise] = useState<any>(null);
   const [clientSecret, setClientSecret] = useState("");
 
@@ -65,16 +65,16 @@ const EbookDetailsPage = ({ id }: Props) => {
           activeItem={2}
         />
         <div className="w-full bg-gradient-4 text-white">
-        <CourseDetails
-          data={data?.ebook || {}}
-          stripePromise={stripePromise}
-          clientSecret={clientSecret}
-          setRoute={setRoute}
-          setOpen={setOpen}
-        />
+          <CourseDetails
+            data={data?.ebook || {}}
+            stripePromise={stripePromise}
+            clientSecret={clientSecret}
+            setRoute={setRoute}
+            setOpen={setOpen}
+          />
         </div>
         <Footer />
-        
+
       </div>
     </>
   );

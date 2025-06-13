@@ -16,7 +16,7 @@ type Props = {
 };
 
 const EbookContent = ({ id, user }: Props) => {
-  const { data: contentData, isLoading, refetch } = useGetEbookDetailQuery(id, { refetchOnMountOrArgChange: true });
+  const { data: contentData, isLoading, refetch } = useGetEbookDetailQuery<any>(id, { refetchOnMountOrArgChange: true });
   const [open, setOpen] = useState(false);
   const [route, setRoute] = useState('Login')
   const data = contentData?.ebook;
@@ -91,13 +91,13 @@ const EbookContent = ({ id, user }: Props) => {
 
                     />
                     <div className="flex items-center">
-                  
-                        <div
-                          className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
-                          // onClick={handleOrder}
-                        >
-                          Download Now
-                        </div>
+
+                      <div
+                        className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
+                      // onClick={handleOrder}
+                      >
+                        Download Now
+                      </div>
                     </div>
                     <br />
                   </div>

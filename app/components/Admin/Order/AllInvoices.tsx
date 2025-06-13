@@ -15,9 +15,9 @@ type Props = {
 
 const AllInvoices = ({ isDashboard }: Props) => {
   const { theme, setTheme } = useTheme();
-  const { isLoading, data } = useGetAllOrdersQuery({});
-  const { data: usersData } = useGetAllUsersQuery({});
-  const { data: coursesData } = useGetAllCoursesQuery({});
+  const { isLoading, data } = useGetAllOrdersQuery<any>({});
+  const { data: usersData } = useGetAllUsersQuery<any>({});
+  const { data: coursesData } = useGetAllCoursesQuery<any>({});
 
   const [orderData, setOrderData] = useState<any>([]);
 
@@ -48,29 +48,29 @@ const AllInvoices = ({ isDashboard }: Props) => {
     ...(isDashboard
       ? []
       : [
-          { field: "userEmail", headerName: "Email", flex: 1 },
-          { field: "title", headerName: "Course Title", flex: 1 },
-        ]),
+        { field: "userEmail", headerName: "Email", flex: 1 },
+        { field: "title", headerName: "Course Title", flex: 1 },
+      ]),
     { field: "price", headerName: "Price", flex: 0.5 },
     ...(isDashboard
       ? [{ field: "created_at", headerName: "Created At", flex: 0.5 }]
       : [
-          {
-            field: " ",
-            headerName: "Email",
-            flex: 0.2,
-            renderCell: (params: any) => {
-              return (
-                <a href={`mailto:${params.row.userEmail}`}>
-                  <AiOutlineMail
-                    className="dark:text-white text-black"
-                    size={20}
-                  />
-                </a>
-              );
-            },
+        {
+          field: " ",
+          headerName: "Email",
+          flex: 0.2,
+          renderCell: (params: any) => {
+            return (
+              <a href={`mailto:${params.row.userEmail}`}>
+                <AiOutlineMail
+                  className="dark:text-white text-black"
+                  size={20}
+                />
+              </a>
+            );
           },
-        ]),
+        },
+      ]),
   ];
 
   const rows: any = [];

@@ -41,11 +41,11 @@ const AllEbook = (props: Props) => {
     const [open, setOpen] = useState(false);
     const [openModalAdd, setOpenModalAdd] = useState(false);
     const [ebookId, setEbookId] = useState("");
-    const { isLoading, data, refetch } = useGetAllEbookQuery(
+    const { isLoading, data, refetch } = useGetAllEbookQuery<any>(
         {},
         { refetchOnMountOrArgChange: true }
     );
-    const [deleteEbook, { isSuccess, error, isLoading: isLoadingDel }] = useDeleteEbookMutation({});
+    const [deleteEbook, { isSuccess, error, isLoading: isLoadingDel }] = useDeleteEbookMutation<any>({});
 
     const [courseInfo, setCourseInfo] = useState({}) as any;
 
@@ -353,7 +353,7 @@ const AllEbook = (props: Props) => {
                     }
                 </Box>
             )}
-            <SimpleBackdrop open={isLoadingDel}/>
+            <SimpleBackdrop open={isLoadingDel} />
         </div>
     );
 };

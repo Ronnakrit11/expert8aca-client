@@ -6,7 +6,7 @@ import { HiMinus, HiPlus } from "react-icons/hi";
 type Props = {};
 
 const FAQ = (props: Props) => {
-  const { data } = useGetHeroDataQuery("FAQ", {});
+  const { data } = useGetHeroDataQuery<any>("FAQ", {});
   const [activeQuestion, setActiveQuestion] = useState(null);
   const [questions, setQuestions] = useState<any[]>([]);
 
@@ -28,9 +28,8 @@ const FAQ = (props: Props) => {
             {questions?.map((q) => (
               <div
                 key={q.id}
-                className={`${
-                  q._id !== questions[0]?._id && "border-t"
-                } border-gray-200 pt-6`}
+                className={`${q._id !== questions[0]?._id && "border-t"
+                  } border-gray-200 pt-6`}
               >
                 <dt className="text-lg">
                   <button

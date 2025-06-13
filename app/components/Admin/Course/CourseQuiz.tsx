@@ -19,7 +19,7 @@ const CourseQuiz: FC<Props> = ({
     setActive,
 }) => {
     const [quizOptions, setQuizOptions] = useState<any[]>([]);
-    const { data: quizData, isLoading: quizLoading, error: quizError, } = useGetAllQuizQuery(undefined, { refetchOnMountOrArgChange: true, });
+    const { data: quizData, isLoading: quizLoading, error: quizError, } = useGetAllQuizQuery<any>(undefined, { refetchOnMountOrArgChange: true, });
     const quiz = courseInfo.quiz;
     useEffect(() => {
         if (quiz) {

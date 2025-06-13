@@ -31,8 +31,8 @@ enum PaymentMethod {
 
 const SlipPayment = ({ product, data }: IProps) => {
   console.log("🚀 ~ SlipPayment ~ data:", data)
-  const { data: userData, refetch } = useLoadUserQuery(undefined, {});
-  const [getToken, { }] = useGetTokenPaymentMutation();
+  const { data: userData, refetch } = useLoadUserQuery<any>(undefined, {});
+  const [getToken, { }] = useGetTokenPaymentMutation<any>();
 
   const router = useRouter()
   const [token, setToken] = useState()
@@ -40,7 +40,7 @@ const SlipPayment = ({ product, data }: IProps) => {
   const [ons, setONS] = useState(false)
   const [user, setUser] = useState<any>();
   const [refId, setRefId] = useState<string | ''>('')
-  const [verifySlip, { data: orderData, error, isLoading, isError }] = useVerifySlipMutation()
+  const [verifySlip, { data: orderData, error, isLoading, isError }] = useVerifySlipMutation<any>()
   const [addressInfo, setAddressInfo] = useState({
     fullname: '',
     address: '',
@@ -263,7 +263,7 @@ const SlipPayment = ({ product, data }: IProps) => {
               <div>
                 <p className='text-left text-[18px] font-semibold'>2. ยืนยันการโอนเงิน</p>
                 <div className='flex flex-col justify-center items-center gap-4 mt-5'>
-                   <ImageNext alt='' src={getBankImagePath('kbank')} width={300} height={300} />
+                  <ImageNext alt='' src={getBankImagePath('kbank')} width={300} height={300} />
                   <p className='text-xl text-gray-700'>เลขบัญชี</p>
                   <p onClick={handleCopy} className='text-2xl px-20 py-2 bg-slate-300 flex justify-center items-center relative cursor-pointer'>{BANK_NO} <FaRegCopy className=' cursor-pointer absolute right-0 pr-3 text-3xl' /></p>
                   <div className='text-sm mt-[-13px]'>{BANK_ACCOUNT_NAME}</div>

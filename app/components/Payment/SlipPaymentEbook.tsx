@@ -28,13 +28,13 @@ enum PaymentMethod {
 }
 
 const SlipPaymentEbook = ({ product, data }: IProps) => {
-  const { data: userData, refetch } = useLoadUserQuery(undefined, {});
+  const { data: userData, refetch } = useLoadUserQuery<any>(undefined, {});
 
   const router = useRouter()
   const [resultQr, setResultQr] = useState('');
   const [ons, setONS] = useState(false)
   const [user, setUser] = useState<any>();
-  const [verifySlip, { data: orderData, error, isLoading, isError }] = useVerifySlipMutation()
+  const [verifySlip, { data: orderData, error, isLoading, isError }] = useVerifySlipMutation<any>()
 
   const isFree = data?.price === 0;
 

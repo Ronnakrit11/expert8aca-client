@@ -58,7 +58,7 @@ const FileManager = () => {
         isSuccess,
         error,
         refetch,
-    } = useGetAllFileAndFolderQuery(
+    } = useGetAllFileAndFolderQuery<any>(
         {},
         {
             refetchOnMountOrArgChange: true,
@@ -208,7 +208,7 @@ const FileManager = () => {
 
         await getFolder(id)
             .unwrap()
-            .then((result) => {
+            .then((result: any) => {
                 const mergeAll = mergeAllFolderFile(
                     result.folder.childFolders,
                     result.folder.childFiles

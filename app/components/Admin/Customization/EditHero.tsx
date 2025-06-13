@@ -15,12 +15,12 @@ const EditHero: FC<Props> = (props: Props) => {
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
-  const { data, refetch } = useGetHeroDataQuery("Banner", {
+  const { data, refetch } = useGetHeroDataQuery<any>("Banner", {
     refetchOnMountOrArgChange: true
   });
   const inputFileElement: any = useRef(null);
 
-  const [editLayout, { isLoading, isSuccess, error }] = useEditLayoutMutation();
+  const [editLayout, { isLoading, isSuccess, error }] = useEditLayoutMutation<any>();
 
   const [imageList, setImageList] = useState([])
 
@@ -30,7 +30,7 @@ const EditHero: FC<Props> = (props: Props) => {
       setSubTitle(data?.layout?.banner.subTitle);
       setImage(data?.layout?.banner?.image?.url);
 
-      if(data?.layout?.banner?.image?.length){
+      if (data?.layout?.banner?.image?.length) {
         setImageList(data?.layout?.banner?.image || [])
       }
     }

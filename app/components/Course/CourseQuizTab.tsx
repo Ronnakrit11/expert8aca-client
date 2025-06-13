@@ -68,7 +68,7 @@ const CourseQuizTab = ({ quizData, isPreTest, courseId, preTestRefetch }) => {
       }
     }
 
-    getQuizStatus(payload).unwrap().then(({ result }) => {
+    getQuizStatus(payload).unwrap().then(({ result }: any) => {
       const { quizSubmission, quiz, } = result
       const quizStatus = isPreTest ? quizSubmission?.pre_test_status : quizSubmission?.post_test_status || null
       if (quizStatus === QUIZ_STAGE.COMPLETED) {
@@ -124,7 +124,7 @@ const CourseQuizTab = ({ quizData, isPreTest, courseId, preTestRefetch }) => {
         type: isPreTest ? 'pre-test' : 'post-test',
       }
     }
-    await startQuiz(payload).unwrap().then(result => {
+    await startQuiz(payload).unwrap().then((result: any) => {
       const { quizItem } = result.quiz
       const { quizSubmission } = result
       const selectQuiz = isPreTest ? quizSubmission.pre_test : quizSubmission.post_test
