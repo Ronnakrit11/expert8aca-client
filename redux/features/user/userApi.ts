@@ -1,9 +1,10 @@
 import { apiSlice } from "../api/apiSlice";
+import { EndpointBuilder, AvatarParam, NameParam, BodyParam, UserPasswordParam, UserRoleParam, UserCourseParam } from "../types";
 
 export const userApi = apiSlice.injectEndpoints({
-  endpoints: (builder) => ({
+  endpoints: (builder: EndpointBuilder) => ({
     updateAvatar: builder.mutation({
-      query: (avatar) => ({
+      query: (avatar: any) => ({
         url: "update-user-avatar",
         method: "PUT",
         body: { avatar },
@@ -11,7 +12,7 @@ export const userApi = apiSlice.injectEndpoints({
       }),
     }),
     editProfile: builder.mutation({
-      query: ({ name }) => ({
+      query: ({ name }: NameParam) => ({
         url: "update-user-info",
         method: "PUT",
         body: {
@@ -21,7 +22,7 @@ export const userApi = apiSlice.injectEndpoints({
       }),
     }),
     addUser: builder.mutation({
-      query: (body) => ({
+      query: (body: any) => ({
         url: "add-user",
         method: "POST",
         body,
@@ -29,7 +30,7 @@ export const userApi = apiSlice.injectEndpoints({
       }),
     }),
     updatePassword: builder.mutation({
-      query: ({ oldPassword, newPassword }) => ({
+      query: ({ oldPassword, newPassword }: UserPasswordParam) => ({
         url: `${window.location.origin}/update-user-password`,
         method: "PUT",
         body: {
@@ -47,7 +48,7 @@ export const userApi = apiSlice.injectEndpoints({
       }),
     }),
     updateUserRole: builder.mutation({
-      query: ({ email, role }) => ({
+      query: ({ email, role }: UserRoleParam) => ({
         url: "update-user",
         method: "PUT",
         body: { email, role },
@@ -55,7 +56,7 @@ export const userApi = apiSlice.injectEndpoints({
       }),
     }),
     deleteUser: builder.mutation({
-      query: (id) => ({
+      query: (id: string) => ({
         url: `delete-user/${id}`,
         method: "DELETE",
         credentials: "include" as const,

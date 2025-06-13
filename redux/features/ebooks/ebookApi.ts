@@ -1,7 +1,8 @@
 import { apiSlice } from "../api/apiSlice";
+import { EndpointBuilder, IdParam, IdDataParam } from "../types";
 
 export const ebookApi = apiSlice.injectEndpoints({
-  endpoints: (builder) => ({
+  endpoints: (builder: EndpointBuilder) => ({
     createEbook: builder.mutation({
       query: (data) => ({
         url: "create-ebook",
@@ -18,14 +19,14 @@ export const ebookApi = apiSlice.injectEndpoints({
     //   }),
     // }),
     deleteEbook: builder.mutation({
-      query: (id) => ({
+      query: (id: string) => ({
         url: `delete-ebook/${id}`,
         method: "DELETE",
         credentials: "include" as const,
       }),
     }),
     editEbook: builder.mutation({
-      query: ({ id, data }) => ({
+      query: ({ id, data }: IdDataParam) => ({
         url: `edit-ebook/${id}`,
         method: "PUT",
         body: data,

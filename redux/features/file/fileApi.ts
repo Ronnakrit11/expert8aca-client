@@ -1,7 +1,8 @@
 import { apiSlice } from "../api/apiSlice";
+import { EndpointBuilder, IdParam, IdNameParam, FileParam, BodyParam } from "../types";
 
 export const fileApi = apiSlice.injectEndpoints({
-  endpoints: (builder) => ({
+  endpoints: (builder: EndpointBuilder) => ({
     getAllFileAndFolder: builder.query({
       query: () => ({
         url: "file/get-folders-files",

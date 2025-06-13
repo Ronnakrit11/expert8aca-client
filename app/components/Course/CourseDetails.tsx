@@ -12,6 +12,7 @@ import { VscVerifiedFilled } from "react-icons/vsc";
 import { useGetTokenPaymentMutation } from "@/redux/features/orders/ordersApi";
 import ModalPayment from "@/app/utils/ModalPayment";
 import SlipPayment from "../Payment/SlipPayment";
+import AddToCartButton from "../Cart/AddToCartButton";
 
 type Props = {
   data: any;
@@ -298,11 +299,23 @@ const CourseDetails = ({
                     }
                   </>
                 ) : (
-                  <div
-                    className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
-                    onClick={handleOrder}
-                  >
-                    Buy Now {data.price}฿
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <div
+                      className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
+                      onClick={handleOrder}
+                    >
+                      Buy Now {data.price}฿
+                    </div>
+                    <AddToCartButton 
+                      courseId={data._id} 
+                      className="!w-[180px] my-3 font-Poppins cursor-pointer"
+                      courseData={{
+                        name: data.name,
+                        description: data.description,
+                        price: data.price,
+                        thumbnail: data.thumbnail
+                      }}
+                    />
                   </div>
                 )}
               </div>

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
 import { AiOutlineUnorderedList } from "react-icons/ai";
+import AddToCartButton from "../Cart/AddToCartButton";
 
 type Props = {
   item: any;
@@ -64,12 +65,17 @@ const CourseCard: FC<Props> = ({ item, isProfile, expireIn = null }) => {
                 {item.estimatedPrice}฿
               </h5>
             </div>
-            <div className="flex items-center pb-3">
+            <div className="flex items-center">
               <h5 className=" text-black dark:text-[#777] text-[10px] md:text-[12px]">
                 {item.courseData?.length} Lectures
               </h5>
             </div>
           </div>
+          {!isProfile && (
+            <div className="mt-2">
+              <AddToCartButton courseId={item._id} className="text-xs py-1 px-2" />
+            </div>
+          )}
           {
           expireIn !== null ? <div className="flex items-center pb-3">
             <h5 className="text-[12px] text-black dark:text-[#fff] mt-2">
@@ -100,12 +106,30 @@ const CourseCard: FC<Props> = ({ item, isProfile, expireIn = null }) => {
               {item.courseData?.length} Lectures | {item.purchased} Students
             </h5>
           </div>
-          <h3 className="text-[#dc3545] dark:text-[#fff] absolute right-[50px] bottom-0">
-            {item.price === 0 ? "Free" : item.price + "฿"}
-          </h3>
-          <h5 className="pl-3 text-[10px] mt-[-5px] line-through opacity-80 text-[#777] dark:text-[#fff] absolute right-1 bottom-0">
-            {item.estimatedPrice}฿
-          </h5>
+          <div className="flex justify-between items-center mt-2">
+            <div>
+              {!isProfile && (
+                <AddToCartButton 
+                  courseId={item._id} 
+                  className="text-xs py-1 px-2" 
+                  courseData={{
+                    name: item.name,
+                    description: item.description || '',
+                    price: item.price,
+                    thumbnail: item.thumbnail
+                  }} 
+                />
+              )}
+            </div>
+            <div className="flex items-center">
+              <h3 className="text-[#dc3545] dark:text-[#fff]">
+                {item.price === 0 ? "Free" : item.price + "฿"}
+              </h3>
+              <h5 className="pl-3 text-[10px] mt-[-5px] line-through opacity-80 text-[#777] dark:text-[#fff]">
+                {item.estimatedPrice}฿
+              </h5>
+            </div>
+          </div>
         </div>
         {/* {
           expireIn !== null ? <div className="flex items-center pb-3">

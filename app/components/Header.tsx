@@ -22,6 +22,7 @@ import { AiOutlineFilePpt, AiOutlineLogout } from "react-icons/ai";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import Loader from "./Loader/Loader";
 import { useRouter } from "next/navigation";
+import CartIcon from "./Cart/CartIcon";
 
 type Props = {
   open: boolean;
@@ -174,6 +175,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                         onClick={() => setOpenSidebar(true)}
                       />
                     </div>
+                    <div className="ml-4"><CartIcon /></div>
                   {userData ? (
                           <>
                           <Dropdown className="z-[999]" label={

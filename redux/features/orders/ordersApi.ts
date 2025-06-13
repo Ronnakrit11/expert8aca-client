@@ -1,9 +1,10 @@
 import { apiSlice } from "../api/apiSlice";
+import { EndpointBuilder, TypeParam, CourseIdParam, EbookIdParam, AmountParam, BodyParam, CourseIdPaymentParam, EbookIdPaymentParam } from "../types";
 
 export const ordersApi = apiSlice.injectEndpoints({
-  endpoints: (builder) => ({
+  endpoints: (builder: EndpointBuilder) => ({
     getAllOrders: builder.query({
-      query: (type) => ({
+      query: (type: string) => ({
         url: `get-orders`,
         method: "GET",
         credentials: "include" as const,
@@ -18,7 +19,7 @@ export const ordersApi = apiSlice.injectEndpoints({
     }),
 
     getTokenPayment: builder.mutation({
-      query: (courseId) => ({
+      query: (courseId: string) => ({
         url: `/payment/token`,
         method: "POST",
         body: {
@@ -29,7 +30,7 @@ export const ordersApi = apiSlice.injectEndpoints({
     }),
 
     getTokenPaymentEbook: builder.mutation({
-      query: (ebookId) => ({
+      query: (ebookId: string) => ({
         url: `/payment/token`,
         method: "POST",
         body: {
@@ -39,7 +40,7 @@ export const ordersApi = apiSlice.injectEndpoints({
       }),
     }),
     createPaymentIntent: builder.mutation({
-      query: (amount) => ({
+      query: (amount: number) => ({
         url: "payment",
         method: "POST",
         body: {
@@ -49,7 +50,7 @@ export const ordersApi = apiSlice.injectEndpoints({
       }),
     }),
     verifySlip: builder.mutation({
-      query: (body) => ({
+      query: (body: any) => ({
         url: "/verify-slip",
         method: "POST",
         body,
@@ -57,7 +58,7 @@ export const ordersApi = apiSlice.injectEndpoints({
       }),
     }),
     createOrder: builder.mutation({
-      query: ({ courseId, payment_info }) => ({
+      query: ({ courseId, payment_info }: CourseIdPaymentParam) => ({
         url: "create-order",
         body: {
           courseId,
@@ -68,7 +69,7 @@ export const ordersApi = apiSlice.injectEndpoints({
       }),
     }),
     createOrderEbook: builder.mutation({
-      query: ({ ebookId, payment_info, isFree }) => ({
+      query: ({ ebookId, payment_info, isFree }: EbookIdPaymentParam) => ({
         url: "create-order-ebook",
         body: {
           isFree,

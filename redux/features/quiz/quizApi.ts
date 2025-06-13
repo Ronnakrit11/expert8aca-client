@@ -1,9 +1,10 @@
 import { apiSlice } from "../api/apiSlice";
+import { EndpointBuilder, QuizIdParam, QuizIdBodyParam, QuizCourseIdParam } from "../types";
 
 export const quizApi = apiSlice.injectEndpoints({
-    endpoints: (builder) => ({
+    endpoints: (builder: EndpointBuilder) => ({
         createQuiz: builder.mutation({
-            query: (body) => ({
+            query: (body: any) => ({
                 url: "/admin/quiz",
                 method: "POST",
                 body,
@@ -19,7 +20,7 @@ export const quizApi = apiSlice.injectEndpoints({
             }),
         }),
         deleteQuiz: builder.mutation({
-            query: (quizId) => ({
+            query: (quizId: string) => ({
                 url: `/admin/quiz/${quizId}`,
                 method: "DELETE",
                 credentials: "include" as const,
@@ -33,7 +34,7 @@ export const quizApi = apiSlice.injectEndpoints({
             }),
         }),
         getQuizById: builder.query({
-            query: (quiz_id) => ({
+            query: (quiz_id: string) => ({
                 url: `/admin/quiz/${quiz_id}`,
                 method: "GET",
                 credentials: "include" as const,
@@ -64,7 +65,7 @@ export const quizApi = apiSlice.injectEndpoints({
             }),
         }),
         getQuizInfo: builder.query({
-            query: ({ quiz_id, course_id }) => ({
+            query: ({ quiz_id, course_id }: QuizCourseIdParam) => ({
                 url: `/quiz/${course_id}/${quiz_id}`,
                 method: "GET",
                 credentials: "include" as const,

@@ -1,7 +1,8 @@
 import { apiSlice } from "../api/apiSlice";
+import { EndpointBuilder, IdParam } from "../types";
 
 export const notificationsApi = apiSlice.injectEndpoints({
-  endpoints: (builder) => ({
+  endpoints: (builder: EndpointBuilder) => ({
     getAllNotifications: builder.query({
       query: () => ({
         url: "get-all-notifications",
@@ -10,7 +11,7 @@ export const notificationsApi = apiSlice.injectEndpoints({
       }),
     }),
     updateNotificationStatus: builder.mutation({
-      query: (id) => ({
+      query: (id: string) => ({
         url: `/update-notification/${id}`,
         method: "PUT",
         credentials: "include" as const,
